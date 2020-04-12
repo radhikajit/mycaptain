@@ -1,0 +1,17 @@
+#include<stdio.h>
+int sum(int p);
+void main()
+{
+ int a;
+ printf("enter no.");
+ scanf("%d",&a);
+ int x= sum(a);
+ printf("sum is %d",x);
+}
+int sum(int p)
+{
+ if(p==0)
+ return 0;
+ else
+ return (p%10+sum(p/10));
+}
