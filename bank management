@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<string.h>
+typedef struct bank
+{
+   char name[100];
+   float money;
+}
+void add()
+{
+    FILE *fp = ("bank.txt","a+");
+    bank rec;
+    if(fp==NULL)
+    printf("not found\n");
+    else
+    {
+        printf("enter name\n");
+        scanf("%s",rec.name);
+        printf("enter money\n");
+        scanf("%f",&rec.money);
+        fwrite(&rec,sizeof(bank),1,fp);
+        fclose(fp);
+    }
+}
+void remov()
+{
+    FILE *fp = ("bank.txt","r+");
+    FILE *temp= ("temp.txt","w+");
+    bank rec;
+    char name[100];
+    printf("enter name of the person u want to delete");
+    scanf("%s",name);
+    while(!feof(fp))
+    {
+        fread(&rec,sizeof(rec),1,fp);
+        if(strcmp(name,rec.name))
+        fwrite(&rec,sizeof(rec),1,temp);
+    }
+    remove(fp);
+    int value= rename(temp,fp);
+    fclose(fp);
+}
+void update()
+{
+    FILE *fp=("bank.txt","a+");
+    FILE *temp=("temp.txt","w+");
+    bank rec;
+    bank new;
+    char name[100];
+    printf("enter name u want to edit\n");
+    scanf("%s",name);
+    while(!feof(fp))
+    {
+        fread(&rec,sizeof(rec),1,fp);
+        if(strcmp(name,rec,name))
+        {
+            fwrite(&rec,sizeof(rec),1,temp);
+        }
+        else
+        {
+            printf("enter new name\n");
+            scanf("%s",new.name);
+            printf("enter money\n");
+            scanf("%f",&new.money);
+            fwrite(&new,sizeof(new),1,temp);
+        }
+    }
+    remove(fp);
+    int value= rename(temp,fp);
+    fclose(fp);
+}
+void view()
+{
+    bank rec;
+    FILE *fp=("bank.txt1","a+");
+    while(!feof(fp))
+    {
+        fread(&rec,sizeof)
+    }
+}
+void main()
+{
+    int no;
+    do 
+    {
+        printf("enter 1 to add records\n");
+        printf("enter 2 to remove records\n");
+        printf("enter 3 to update records\n");
+        printf("enter 4 to view records\n");
+        printf("enter 5 to withdraw\n");
+        printf("enter 6 to deposit\n");
+        printf("enter 7 to exit\n");
+        scanf("%d",&no);
+        switch(no)
+        {
+            case 1: add();
+            break;
+            case 2: remov();
+            break;
+            case 3: update();
+            break;
+            case 4: view();
+            break;
+            case 5: withdraw();
+            break;
+            case 6: deposit();
+            break;
+            case 7: exit(0);
+            break;
+            default: printf("wrong entry");
+        }while(no!=7);
+    }
+    FILE* fp=fopen("bank.txt");
+}
