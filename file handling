@@ -1,0 +1,26 @@
+
+#include<stdio.h>
+
+void main()
+{
+ FILE* input = fopen("input.txt","w");
+ char c;
+ if(input==NULL)
+ printf("not found");
+ else
+ {
+  while((c=getchar())!=EOF)
+  {
+      fputc(c,input);
+  }
+ } 
+ fclose(input);
+ FILE *output=fopen("input.txt","r");
+ fseek(output,1L,SEEK_END);
+ while(fseek(output,-2L,SEEK_CUR)==0)
+ {
+     if((c=fgetc(output))!=EOF)
+     putchar(c);
+ }
+ fclose(output);
+}
