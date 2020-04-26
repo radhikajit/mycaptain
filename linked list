@@ -6,6 +6,7 @@ struct emp
  char name[100];
  char dept[100];
  float sal;
+ struct emp*next;
 };
 void display(struct emp*emp1);
 void main()
@@ -19,12 +20,14 @@ void main()
  for(int i=0;i<20;i++)
  {
   struct emp*ptr = (struct emp*)malloc(sizeof(struct emp));
+  if(i!=0)
+  temp=ptr;
   printf("enter no");
   scanf("%d",&ptr->no);
   printf("enter name");
   scanf("%s[^/n]",&ptr->name);
   printf("enter dept");
-  scanf("%s[^/n]%*c",&ptr->dept);
+  scanf("%s[^/n]",&ptr->dept);
   printf("enter salary");
   scanf("%f",&ptr->sal);
   if(i==0)
@@ -34,10 +37,10 @@ void main()
    temp=start->next;
   }
   else
-  ptr-> next = NULL;
-  temp = ptr->next;
+  {ptr-> next = NULL;
+  temp = ptr->next;}
  }
- display(start)
+ display(start);
 }
 void display(struct emp* emp1)
 {
@@ -47,7 +50,7 @@ void display(struct emp* emp1)
  { struct emp* ptr=emp1;
   while(ptr!=NULL)
   {
-   printf("%d\n"ptr->no);
+   printf("%d\n",ptr->no);
    printf("%s\n",ptr->name);
    printf("%s\n",ptr->dept);
    printf("%f\n",ptr->sal);
