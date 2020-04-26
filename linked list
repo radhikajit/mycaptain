@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct emp
+{
+ int no;
+ char name[100];
+ char dept[100];
+ float sal;
+};
+void display(struct emp*emp1);
+void main()
+{
+ struct emp*temp = (struct emp*)malloc(sizeof(struct emp));
+ if(temp=NULL)
+ {
+  printf("no space\n");
+ }
+ struct emp*start = (struct emp*)malloc(sizeof(struct emp));
+ for(int i=0;i<20;i++)
+ {
+  struct emp*ptr = (struct emp*)malloc(sizeof(struct emp));
+  printf("enter no");
+  scanf("%d",&ptr->no);
+  printf("enter name");
+  scanf("%s[^/n]",&ptr->name);
+  printf("enter dept");
+  scanf("%s[^/n]%*c",&ptr->dept);
+  printf("enter salary");
+  scanf("%f",&ptr->sal);
+  if(i==0)
+  {
+   start=ptr;
+   start->next=NULL;
+   temp=start->next;
+  }
+  else
+  ptr-> next = NULL;
+  temp = ptr->next;
+ }
+ display(start)
+}
+void display(struct emp* emp1)
+{
+ if(emp1==NULL)
+ printf("not found");
+ else
+ { struct emp* ptr=emp1;
+  while(ptr!=NULL)
+  {
+   printf("%d\n"ptr->no);
+   printf("%s\n",ptr->name);
+   printf("%s\n",ptr->dept);
+   printf("%f\n",ptr->sal);
+   ptr=ptr->next;
+  }
+ }
+}
