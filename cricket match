@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct match
+{
+    char bat[100];
+    char bowl[100];
+    float runs;
+    float balls;
+    int wickets;
+    float overs;
+    float runs_conc;
+};
+void add()
+{
+    struct match one;
+    FILE *fp=fopen("match.dat","a+");
+    printf("enter name of the batsmen");
+    scanf("%s",one.bat);
+    printf("enter runs scored");
+    scanf("%f",&one.runs);
+    printf("enter no. of balls faced");
+    scanf("%f",&one.balls);
+    printf("enter name of the bowler");
+    scanf("%s",one.bowl);
+    printf("enter no. of wickets taken");
+    scanf("%d",&one.wickets);
+    printf("enter no. of overs bowled");
+    scanf("%f",&one.overs);
+    printf("enter no. of runs given by the bowler");
+    scanf("%f",&one.runs_conc);
+    fwrite(&one,sizeof(struct match),1,fp);
+    fclose(fp);
+};
+void display(int n)
+{
+    struct match one;
+    char name[100];
+    FILE *fp=fopen("match.dat","a+");
+    if(n==2 || n==5)    
+    {
+        printf("enter name of the batsmen\n");
+        scanf("%s",&name);
+        while(!feof(fp))
+        {
+            fread(&one,sizeof(struct match),1,fp);
+            if(name==one.bat)
+            {
+                if(n==2)
+                printf("%s scored %f runs\n",name,one.runs);
+                else
+                printf("%s had strike rate %f",name, (one.runs/one.balls)*100);
+            }
+        }
+        fclose(fp);
+    }
+    if(n==3 || n==4)
+    {
+        printf("enter name of the bowler\n");
+        scanf("%s",&name);
+         while(!feof(fp))
+        {
+            fread(&one,sizeof(struct match),1,fp);
+            if(name==one.bowl)
+            {
+                if(n==3)
+                printf("%s took %d wickets\n",name,one.wickets);
+                else
+                printf("%s had economy %f",name,one.runs_conc/one.overs);
+            }
+        }
+        fclose(fp);
+    }
+};
+void main()
+{
+    int no;
+    do
+    {
+        printf("enter 1 to add records\n");
+        printf("enter 2 to see runs scored\n");
+        printf("enter 3 to see wickets taken\n");
+        printf("enter 4 to see the economy of the bowler\n");
+        printf("enter 5 to see the strike rate of the batsmen\n");
+        scanf("%d",&no);
+        if(no==1)
+        add();
+        else if(no>=2 && no<=5)
+        display(no);
+    } while(no>=1 && no<=5);
+}
